@@ -1,7 +1,9 @@
 package ProyectoFinal;
 
+import java.io.*;
 import java.util.Arrays;
 import java.lang.Math;
+import java.util.Scanner;
 
 public class Mapa {
     private int V; //vértices
@@ -121,6 +123,13 @@ public class Mapa {
 
         return (2*6371)*Math.asin(Math.sqrt(Math.pow(Math.sin((radL2-radL1)/2),2)+Math.cos(radL1)*Math.cos(radL2)*Math.pow((radLN2-radLN1)/2,2)));
     }
+    public void pedidoTienda(int id){
+        // Cast para poder usar los metodos de la clase Tienda ya que el vector es de clase Nodo c:
+        ((Tienda) vertex[id]).hacerPedido();
+        // Luego solo actualizo todas las aristas conectadas a ese vertice Tienda para indicar necesita un pedido
+        actualizarAristasConectadas(id,2);
+    }
+
 }
 
 

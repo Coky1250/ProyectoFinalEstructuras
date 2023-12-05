@@ -15,15 +15,15 @@ public class Main {
         test.agregarTienda(1,"D1 San Francisco",1,2);
         test.agregarBodega(2,"Bodega el mas barato",1,2);
         //Creando Aristas
-        test.agregarArista(2,1,2);
+        test.agregarArista(2,1,1);
         test.agregarArista(2,0,1);
 
         test.imprimirGrafo();
         System.out.println("--------------------------------Metodo de Dijkstra--------------------------------");
         System.out.println("Peso=1 (No necesita abastecimiento), Peso = 2 (Necesita abastecimiento) ");
         test.imprimirRecorridoDijkstra(test.dijkstra(2),2);
-        //Actualizando peso de todas las aristas conectadas al vertice
-        test.actualizarAristasConectadas(2,2);
-        test.imprimirRecorridoDijkstra(test.dijkstra(2),2);
+        test.pedidoTienda(1);
+        test.imprimirRecorridoDijkstra(test.dijkstra(2),2 );
+
     }
 }
