@@ -22,8 +22,8 @@ public class Main {
         System.out.println("--------------------------------Metodo de Dijkstra--------------------------------");
         System.out.println("Peso=1 (No necesita abastecimiento), Peso = 2 (Necesita abastecimiento) ");
         test.imprimirRecorridoDijkstra(test.dijkstra(2),2);
+        //Actualizando peso de todas las aristas conectadas al vertice
         test.actualizarAristasConectadas(2,2);
-        test.actualizarAristasConectadas(1,1);
         test.imprimirRecorridoDijkstra(test.dijkstra(2),2);
     }
 }

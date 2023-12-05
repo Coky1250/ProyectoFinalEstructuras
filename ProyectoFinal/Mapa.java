@@ -1,6 +1,7 @@
 package ProyectoFinal;
 
 import java.util.Arrays;
+import java.lang.Math;
 
 public class Mapa {
     private int V; //vértices
@@ -59,11 +60,18 @@ public class Mapa {
                         distancias[u] != Integer.MAX_VALUE &&
                         distancias[u] + matrizAdy[u][v] < distancias[v]) {
                     distancias[v] = distancias[u] + matrizAdy[u][v];
+
+                    if (matrizAdy[u][v] == 2) {
+                        System.out.println("¡Las siguiente tienda necesita abastecerse!");
+                        System.out.println(vertex[v].name);
+                        System.out.println("Distancia desde la bodega " +vertex[u].name+": "+ calcDistance(vertex[u].latitude,vertex[u].longitude,vertex[v].latitude,vertex[v].longitude)+" Km");
+                    }
                 }
             }
         }
         return distancias;
     }
+
 
     private int minimaDistancia(int[] distancias, boolean[] visitado) {
         int min = Integer.MAX_VALUE, min_index = -1;
@@ -103,6 +111,16 @@ public class Mapa {
                 matrizAdy[i][vertice] = nuevoPeso;
             }
         }
+    }
+    //Metodo para calcular la distancia de un lugar a otro usando la formula del semiverseno
+    public double calcDistance(double L1, double LN1, double L2, double LN2) {
+        double radL1= L1 * 3.1416/180;
+        double radL2= L2 * 3.1416/180;
+        double radLN1= LN1 * 3.1416/180;
+        double radLN2= LN2 * 3.1416/180;
+
+        double distance = (2*6371)*Math.asin(Math.sqrt(Math.pow(Math.sin((radL2-radL1)/2),2)+Math.cos(radL1)*Math.cos(radL2)*Math.pow((radLN2-radLN1)/2,2)));
+        return distance;
     }
 }
 
