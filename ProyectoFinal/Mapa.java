@@ -119,8 +119,7 @@ public class Mapa {
         double radLN1= LN1 * 3.1416/180;
         double radLN2= LN2 * 3.1416/180;
 
-        double distance = (2*6371)*Math.asin(Math.sqrt(Math.pow(Math.sin((radL2-radL1)/2),2)+Math.cos(radL1)*Math.cos(radL2)*Math.pow((radLN2-radLN1)/2,2)));
-        return distance;
+        return (2*6371)*Math.asin(Math.sqrt(Math.pow(Math.sin((radL2-radL1)/2),2)+Math.cos(radL1)*Math.cos(radL2)*Math.pow((radLN2-radLN1)/2,2)));
     }
 }
 
