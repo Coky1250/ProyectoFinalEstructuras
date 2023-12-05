@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 public class Mapa {
     private int V; //vértices
-    private int [][] matrizAdy; // Matriz de adyacencia
+    private int[][] matrizAdy; // Matriz de adyacencia
     private Nodo[] vertex;
 
     public Mapa(int v) {
@@ -13,19 +13,20 @@ public class Mapa {
         vertex = new Nodo[V];
     }
 
-    public void agregarBodega(int id, String name,double lt,double ln) {
+    public void agregarBodega(int id, String name, double lt, double ln) {
         vertex[id] = new Bodega(id, name, lt, ln);
     }
-    public void agregarTienda(int id, String name, double lt,double ln){
+
+    public void agregarTienda(int id, String name, double lt, double ln) {
         vertex[id] = new Tienda(id, name, lt, ln);
     }
 
     // Método para agregar una arista al grafo
     public void agregarArista(int origen, int destino, int peso) {
-        if (vertex[origen]!=null && vertex[destino]!=null){
-            matrizAdy[origen][destino] = peso ;
-        }
-        else {
+        if (vertex[origen] != null && vertex[destino] != null) {
+            matrizAdy[origen][destino] = peso;
+            matrizAdy[destino][origen] = peso; // Si es no dirigido
+        } else {
             System.out.println("Los nodos que desea conectar no existen en la base de datos");
         }
     }
@@ -93,5 +94,16 @@ public class Mapa {
             }
         }
     }
+
+    public void actualizarAristasConectadas(int vertice, int nuevoPeso) {
+        for (int i = 0; i < matrizAdy.length; i++) {
+            if (matrizAdy[vertice][i] != 0 || matrizAdy[i][vertice] != 0) {
+                // Actualiza el peso de las aristas desde y hacia el vértice
+                matrizAdy[vertice][i] = nuevoPeso;
+                matrizAdy[i][vertice] = nuevoPeso;
+            }
+        }
+    }
 }
+
 
