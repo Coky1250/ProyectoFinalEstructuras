@@ -1,6 +1,5 @@
 package ProyectoFinal;
 
-import java.io.*;
 import java.util.Arrays;
 import java.lang.Math;
 import java.util.Scanner;
@@ -16,12 +15,12 @@ public class Mapa {
         vertex = new Nodo[V];
     }
 
-    public void agregarBodega(int id, String name, double lt, double ln) {
-        vertex[id] = new Bodega(id, name, lt, ln);
+    public void agregarBodega(int id, String name, double lt, double ln, String address) {
+        vertex[id] = new Bodega(id, name, lt, ln, address);
     }
 
-    public void agregarTienda(int id, String name, double lt, double ln) {
-        vertex[id] = new Tienda(id, name, lt, ln);
+    public void agregarTienda(int id, String name, double lt, double ln, String address) {
+        vertex[id] = new Tienda(id, name, lt, ln, address);
     }
 
     // Método para agregar una arista al grafo
@@ -66,7 +65,9 @@ public class Mapa {
                     if (matrizAdy[u][v] == 2) {
                         System.out.println("¡Las siguiente tienda necesita abastecerse!");
                         System.out.println(vertex[v].name);
+                        System.out.println("Direccion: "+ vertex[v].address);
                         System.out.println("Distancia desde la bodega " +vertex[u].name+": "+ calcDistance(vertex[u].latitude,vertex[u].longitude,vertex[v].latitude,vertex[v].longitude)+" Km");
+                        ((Tienda) vertex[v]).mostrarHistorialPendientes();
                     }
                 }
             }
@@ -128,6 +129,23 @@ public class Mapa {
         ((Tienda) vertex[id]).hacerPedido();
         // Luego solo actualizo todas las aristas conectadas a ese vertice Tienda para indicar necesita un pedido
         actualizarAristasConectadas(id,2);
+    }
+    public void aceptarPedido(){
+        System.out.println("A continuacion porfavor ingrese el id de su bodega: ");
+        Scanner scanner = new Scanner(System.in);
+        int idStorage = scanner.nextInt();
+        System.out.println("A continuacion porfavor ingrese el nombre de la tienda a aceptar el pedido: ");
+        scanner = new Scanner(System.in);
+        String nameStore = scanner.nextLine();
+        for (int i=0; i< vertex.length; i++){
+            if(vertex[i].name.equals(nameStore)){
+                ((Bodega) vertex[idStorage]).aceptarPedido(vertex[i].id,vertex[i].name, ((Tienda) vertex[i]).getPendientes());
+                ((Tienda) vertex[i]).moverPendientestoHistorial();
+                actualizarAristasConectadas(vertex[i].id,1);
+            }
+        }
+
+
     }
 
 }
